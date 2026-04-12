@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+# lint-staged 16+ needs Node 20+. Default PATH may still point at an older Node (e.g. nvm default).
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+  # shellcheck disable=SC1091
+  . "$NVM_DIR/nvm.sh"
+  [ -f .nvmrc ] && nvm use
+elif command -v fnm >/dev/null 2>&1; then
+  eval "$(fnm env --shell sh 2>/dev/null || fnm env)"
+  [ -f .nvmrc ] && fnm use
+fi
+
+major=$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0)
+if [ "$major" -lt 20 ] 2>/dev/null; then
+  echo "husky: Node.js 20+ is required for lint-staged. Current: $(node -v 2>/dev/null || echo 'not found')"
+  echo "Install/use the version from .nvmrc (e.g. nvm install && nvm use)."
+  exit 1
+fi
+
+exec npx lint-staged
