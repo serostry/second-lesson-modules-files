@@ -6,6 +6,9 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
+    "count": "node src/characters-counter.js",
+    "log": "node src/script-run-logger.js",
+    "replace": "node src/replace-file-text.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
