@@ -1,5 +1,4 @@
-import fs from "fs";
-
+import { checkIfFileExists, appendToFile, createFile } from "./utils.js";
 const fileName = "log.txt";
 
 const getCurrentDate = () => {
@@ -12,20 +11,6 @@ const getCurrentDate = () => {
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 };
 
-const checkIfFileExists = (path) => {
-  return fs.existsSync(path);
-};
-
-const createLogFile = (fileName) => {
-  const writeStream = fs.createWriteStream(fileName);
-  writeStream.write(createLogMessage());
-};
-
-const appendLogFile = () => {
-  const appendStream = fs.createWriteStream(fileName, { flags: "a" });
-  appendStream.write(createLogMessage());
-};
-
 const createLogMessage = () => {
   return `Script started at ${getCurrentDate()}\n`;
 };
@@ -33,10 +18,10 @@ const createLogMessage = () => {
 const writeLog = () => {
   const fileExists = checkIfFileExists(fileName);
   if (fileExists) {
-    appendLogFile();
+    appendToFile(fileName, createLogMessage());
     return;
   }
-  createLogFile(fileName);
+  createFile(fileName, createLogMessage());
 };
 
 writeLog();
