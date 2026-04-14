@@ -11,7 +11,7 @@ Add the following to the project:
 - ESLint
 - Prettier
 - Nodemon
-- folder src  - all logic files should be placed here
+- folder src - all logic files should be placed here
 
 ### Requirements
 
@@ -24,7 +24,6 @@ Add the following to the project:
 2. Create one file that uses CommonJS syntax and import it into `app.js` (or any other file).
 
 3. Add useful scripts to `package.json`.
-
 
 ---
 
