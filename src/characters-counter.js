@@ -10,10 +10,14 @@ const readFile = () => {
   stream.on("error", () => {
     console.log("Can not read file!");
   });
+
+  const chunks = [];
   stream.on("data", (data) => {
-    if (data) {
-      console.log(`The file contains ${data.length} characters`);
-    }
+    chunks.push(data);
+  });
+  stream.on("end", () => {
+    const content = chunks.join("");
+    console.log(`The file contains ${content.length} characters`);
   });
 };
 

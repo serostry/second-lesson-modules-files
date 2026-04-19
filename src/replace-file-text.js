@@ -2,9 +2,9 @@ import fs from "node:fs";
 import readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { checkIfFileExists, resolveFilePath, createFile, writeToFile } from "./utils.js";
+const rl = readline.createInterface({ input, output });
 
 const getFileName = async () => {
-  const rl = readline.createInterface({ input, output });
   let fileName = await rl.question("Enter file name: ");
   if (!fileName.trim()) {
     while (true) {
@@ -15,7 +15,6 @@ const getFileName = async () => {
       }
     }
   }
-  rl.close();
   return fileName.trim();
 };
 
@@ -38,8 +37,6 @@ const readFileContent = (fileName) => {
 getFileName().then(async (name) => {
   const resolvedPath = resolveFilePath(name);
   const fileExists = checkIfFileExists(name);
-  const rl = readline.createInterface({ input, output });
-
   if (fileExists) {
     const replaceText = await rl.question("Do you want to replace any text in the file? Yes/No: ");
     if (replaceText.toLowerCase().trim() === "yes") {
