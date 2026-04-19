@@ -69,7 +69,11 @@ getFileName().then(async (name) => {
     rl.close();
   } else {
     const fileContent = await rl.question("Provide file content: ");
-    createFile(resolvedPath, fileContent);
-    rl.close();
+    try {
+      createFile(resolvedPath, fileContent);
+      rl.close();
+    } catch (err) {
+      rl.close();
+    }
   }
 });
